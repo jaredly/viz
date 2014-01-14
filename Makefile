@@ -1,8 +1,12 @@
 
 JSXS = $(patsubst %.jsx, %.js, $(wildcard client/*.jsx))
+LESS = $(wildcard less/*.less)
 
-build: components client/index.js main.css $(JSXS)
+build: components client/index.js viz.css $(JSXS)
 	@component build --dev -n build -s main -o web
+
+viz.css: $(LESS)
+	@lessc less/index.less > viz.css
 
 client/%.js: client/%.jsx
 	@jsx $< > $@
