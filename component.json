@@ -1,0 +1,17 @@
+{
+  "name": "viz",
+  "repo": "jaredly/viz",
+  "description": "A web client for the vega grammar",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "viz.css"
+  ]
+}
