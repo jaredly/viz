@@ -4,7 +4,9 @@
   "description": "A web client for the vega grammar",
   "version": "0.0.1",
   "keywords": [],
-  "dependencies": {},
+  "dependencies": {
+    "visionmedia/superagent": "*"
+  },
   "development": {},
   "license": "MIT",
   "main": "index.js",
@@ -13,5 +15,6 @@
   ],
   "styles": [
     "viz.css"
-  ]
+  ],
+  "remotes": []
 }
