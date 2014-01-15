@@ -3,6 +3,7 @@ var SchemaMaker = require('./schema')
   , VegaViewer = require('./viewer')
   , request = require('superagent')
   , d = React.DOM
+  , _ = require('lodash')
 
 var Main = React.createClass({
   getDefaultProps: function () {
@@ -38,7 +39,16 @@ var Main = React.createClass({
   },
   changeSchema: function (prop, value) {
     console.log(prop, value, 'changing')
-    this.setState({schema: prop})
+    if (prop === null) {
+      return this.setState({schema: value})
+    }
+    var schema = _.cloneDeep(this.state.schema)
+      , parts = prop.split('.')
+      , last = parts.pop()
+    parts.reduce(function (obj, attr) {
+      return obj && obj[attr]
+    }, schema)[last] = value
+    this.setState({schema: schema})
   },
   render: function () {
     if (this.state.status === 'init') {

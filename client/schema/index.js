@@ -2,6 +2,9 @@
 var d = React.DOM
   , request = require('superagent')
 
+  , Stringer = require('./stringer')
+  , Intput = require('./intput')
+
 var SchemaMaker = module.exports = React.createClass({
   getInitialState: function () {
     return {loading: false, error: false}
@@ -18,7 +21,7 @@ var SchemaMaker = module.exports = React.createClass({
           return
         }
         this.setState({loading: false, error: false})
-        this.props.onChange(res.body)
+        this.props.onChange(null, res.body)
       }.bind(this))
   },
   picker: function () {
@@ -59,8 +62,33 @@ var SchemaMaker = module.exports = React.createClass({
         },
         'Examples List'
       ),
-      'This is where we would edit things',
-      JSON.stringify(this.props.schema, null, 4)
+      Stringer({
+        title: 'Name',
+        value: this.props.schema.name,
+        onChange: this.props.onChange.bind(null, 'name')
+      }),
+      Intput({
+        title: 'Width',
+        value: this.props.schema.width,
+        onChange: this.props.onChange.bind(null, 'width')
+      }),
+      Intput({
+        title: 'Height',
+        value: this.props.schema.height,
+        onChange: this.props.onChange.bind(null, 'height')
+      })
+      /*
+      viewport,
+      padding,
+
+      data,
+      scales,
+      axes,
+      legends,
+      marks,
+      */
+      //'This is where we would edit things',
+      //JSON.stringify(this.props.schema, null, 4)
     )
   }
 })

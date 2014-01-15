@@ -5,7 +5,8 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    "visionmedia/superagent": "*"
+    "visionmedia/superagent": "*",
+    "lodash/lodash": "*"
   },
   "development": {},
   "license": "MIT",
@@ -13,6 +14,8 @@
   "scripts": [
     "client/index.js",
     "client/schema/index.js",
+    "client/schema/intput.js",
+    "client/schema/stringer.js",
     "client/viewer.js"
   ],
   "styles": [
