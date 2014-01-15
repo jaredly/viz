@@ -9,9 +9,11 @@
   },
   "development": {},
   "license": "MIT",
-  "main": "index.js",
+  "main": "client/index.js",
   "scripts": [
-    "index.js"
+    "client/index.js",
+    "client/schema/index.js",
+    "client/viewer.js"
   ],
   "styles": [
     "viz.css"

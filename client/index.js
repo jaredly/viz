@@ -21,20 +21,20 @@ var Main = React.createClass({
     this.setState({
       status: 'loading',
     })
-    request.get(this.props.example)
+    request.get(this.props.examples)
       .end(function (err, req) {
-        if (err) {
+        if (err || req.status !== 200) {
           this.setState({
-            loading: false,
+            status: 'error',
             error: 'Failed to load examples'
           })
           return
         }
         this.setState({
           exampleSchemas: req.body,
-          loading: false
+          status: 'ready'
         })
-      })
+      }.bind(this))
   },
   changeSchema: function (prop, value) {
     console.log(prop, value, 'changing')
@@ -46,10 +46,13 @@ var Main = React.createClass({
     if (this.state.status === 'loading') {
       return d.div(null, 'Loading...')
     }
+    if (this.state.status === 'error') {
+      return d.div(null, 'Error...' + this.state.error)
+    }
     return d.div(
       {className: 'vega-real'},
       SchemaMaker({
-        examples: this.state.exampleSchemas,
+        examples: this.state.exampleSchemas || {},
         schema: this.state.schema,
         onChange: this.changeSchema
       }),
@@ -60,3 +63,6 @@ var Main = React.createClass({
   },
 })
 
+module.exports = function (el) {
+  React.renderComponent(Main(), el)
+}
