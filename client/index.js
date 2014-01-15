@@ -38,6 +38,7 @@ var Main = React.createClass({
   },
   changeSchema: function (prop, value) {
     console.log(prop, value, 'changing')
+    this.setState({schema: prop})
   },
   render: function () {
     if (this.state.status === 'init') {

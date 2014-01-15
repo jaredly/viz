@@ -1,8 +1,10 @@
 components
 build
 *.swp
-web/bootstrap
-web/font-awesome
-web/jquery-2.0.3.js
-web/react-0.8.0.js
-web/build.js
+/web/bootstrap
+/web/font-awesome
+/web/jquery-2.0.3.js
+/web/react-0.8.0.js
+/web/build.js
+/web/lib
+/web/vega.js

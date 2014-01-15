@@ -35,7 +35,7 @@ web/react-0.8.0.js:
 	@cd web && wget http://fb.me/react-0.8.0.js
 
 web/bootstrap:
-	@cd web && wget https://github.com/twbs/bootstrap/releases/download/v3.0.3/bootstrap-3.0.3-dist.zip && unzip bootstrap-3.0.3-dist.zip && mv dist bootstrap && rm bootstap-3.0.3.zip
+	@cd web && wget https://github.com/twbs/bootstrap/releases/download/v3.0.3/bootstrap-3.0.3-dist.zip && unzip bootstrap-3.0.3-dist.zip && mv dist bootstrap && rm bootstap-3.0.3-dist.zip
 
 web/font-awesome:
 	@cd web && wget http://fontawesome.io/assets/font-awesome-4.0.3.zip && unzip font-awesome-4.0.3.zip && mv font-awesome-4.0.3 font-awesome && rm font-awesome-4.0.3.zip

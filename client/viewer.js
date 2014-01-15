@@ -11,13 +11,13 @@ var VegaViewer = module.exports = React.createClass({
     }
   },
   vis: function () {
-    if (!this.props.spec) return
+    if (!this.props.schema) return
     var node = this.refs.canvas.getDOMNode()
-    vg.parse.spec(this.props.spec, function (chart) {
+    vg.parse.spec(this.props.schema, function (chart) {
       var view = chart({
         el: node,
         data: undefined,
-        renderer: 'Canvas'
+        renderer: 'canvas'
       })
       view.update()
     })
@@ -25,8 +25,9 @@ var VegaViewer = module.exports = React.createClass({
   render: function () {
     return d.div(
       {className: 'viewer'},
-      d.canvas({
+      d.div({
         className: 'viewer__canvas',
+        id: 'canvas',
         ref: 'canvas'
       })
     )

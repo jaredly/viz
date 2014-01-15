@@ -1,16 +1,34 @@
 
 var d = React.DOM
+  , request = require('superagent')
 
 var SchemaMaker = module.exports = React.createClass({
+  getInitialState: function () {
+    return {loading: false, error: false}
+  },
+  getExample: function (name) {
+    this.setState({loading: true})
+    request.get('examples/' + name + '.json')
+      .end(function (err, res) {
+        if (err || res.status !== 200 || !res.body) {
+          this.setState({
+            loading: false,
+            error: 'Failed to get example...'
+          })
+          return
+        }
+        this.setState({loading: false, error: false})
+        this.props.onChange(res.body)
+      }.bind(this))
+  },
   picker: function () {
-    var names = Object.keys(this.props.examples)
     return d.ul(
       {className: 'schema__examples'},
-      names.map(function (name) {
+      this.props.examples.map(function (name) {
         return d.li(
           {
             className: 'schema__example',
-            onClick: this.props.onChange.bind(null, this.props.examples[name])
+            onClick: this.getExample.bind(null, name)
           },
           name
         )
@@ -18,15 +36,21 @@ var SchemaMaker = module.exports = React.createClass({
     )
   },
   render: function () {
+    if (this.state.loading) {
+      return d.div({className: 'schema'}, 'Loading...')
+    }
     if (!this.props.schema) {
       return d.div(
         {className: 'schema'},
+        this.state.error,
         this.picker()
       )
     }
     return d.div(
       {className: 'schema'},
-      'This is where we would edit things'
+        this.state.error,
+      'This is where we would edit things',
+      JSON.stringify(this.props.schema, null, 4)
     )
   }
 })
