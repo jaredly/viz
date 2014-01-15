@@ -35,6 +35,9 @@ var SchemaMaker = module.exports = React.createClass({
       }.bind(this))
     )
   },
+  goBack: function () {
+    this.props.onChange(null)
+  },
   render: function () {
     if (this.state.loading) {
       return d.div({className: 'schema'}, 'Loading...')
@@ -49,6 +52,13 @@ var SchemaMaker = module.exports = React.createClass({
     return d.div(
       {className: 'schema'},
         this.state.error,
+      d.button(
+        {
+          className: 'schema__back',
+          onClick: this.goBack
+        },
+        'Examples List'
+      ),
       'This is where we would edit things',
       JSON.stringify(this.props.schema, null, 4)
     )
