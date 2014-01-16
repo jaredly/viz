@@ -208,3 +208,28 @@ html {
   color: #333;
   cursor: pointer;
 }
+
+.object__child {
+  position: relative;
+}
+
+.object__remove:before {
+  content: '-';
+  color: #555;
+}
+
+.object__remove {
+  background-color: red;
+  position: absolute;
+  display: block;
+  text-align: center;
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
+  left: -20px;
+  top: 2px;
+}
+
+.object__remove:hover {
+  background-color: #faa;
+}

@@ -16,7 +16,10 @@ var dim = {
 var valueRef = {
   _type: 'multi',
   options: [
-    {_type: 'float'},
+    {
+      _title: 'value',
+      value: 'float'
+    },
     {
       _title: 'reference',
       field: 'string',

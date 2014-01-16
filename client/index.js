@@ -72,9 +72,14 @@ var Main = React.createClass({
     var schema = _.cloneDeep(this.state.schema)
       , history = this.state.history.slice(0, this.state.histpos)
     history.push(this.state.schema)
-    path.reduce(function (obj, attr) {
+    var end = path.reduce(function (obj, attr) {
       return obj && obj[attr]
-    }, schema)[last] = value
+    }, schema)
+    if (value === undefined) {
+      delete end[last]
+    } else {
+      end[last] = value
+    }
     this.setState({
       schema: schema,
       history: history,
