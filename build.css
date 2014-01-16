@@ -116,6 +116,7 @@ html {
   background-color: #555;
   padding: 0;
   margin-top: 3px;
+  cursor: pointer;
 }
 
 .multi__title {
@@ -162,6 +163,14 @@ html {
   background-color: #888;
 }
 
+.object__title {
+  background-color: #444;
+  display: block;
+  padding: 2px 4px;
+  margin: 3px 0 0;
+  cursor: pointer;
+}
+
 .object__children,
 .multi__body {
   padding-left: 20px;
@@ -197,11 +206,4 @@ html {
   margin-top: 3px;
   color: #333;
   cursor: pointer;
-}
-
-.object__title {
-  background-color: #444;
-  display: block;
-  padding: 2px 4px;
-  margin: 3px 0 0;
 }

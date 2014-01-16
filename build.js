@@ -9338,10 +9338,10 @@ var valueRef = {\n\
 }\n\
 \n\
 var colorInt = {\n\
-  _type: 'int',\n\
+  _type: 'float',\n\
   min: 0,\n\
-  max: 255,\n\
-  step: 1\n\
+  max: 1,\n\
+  step: .01\n\
 }\n\
 \n\
 var colorRef = {\n\
@@ -9718,7 +9718,8 @@ var Mapping = module.exports = React.createClass({\n\
       },\n\
       this.props.showTitle && d.span({className: 'object__collapser', onClick: this.toggleCollapse}),\n\
       this.props.showTitle && d.span({\n\
-        className: 'object__title'\n\
+        className: 'object__title',\n\
+        onClick: this.toggleCollapse\n\
       }, this.props.title || schema._title),\n\
       d.div({className: 'object__children'},\n\
         keys.map(function (name) {\n\
@@ -9786,9 +9787,12 @@ var Multi = module.exports = React.createClass({\n\
     )\n\
   },\n\
 \n\
-  changeType: function (i) {\n\
+  changeType: function (i, e) {\n\
+    e.preventDefault()\n\
+    e.stopPropagation()\n\
     var option = this.props.schema.options[i]\n\
       , t = typeof option\n\
+    this.setState({collapsed: false})\n\
     if (t === 'string' || t === 'int') {\n\
       return this.props.onChange(option)\n\
     }\n\
@@ -9828,7 +9832,7 @@ var Multi = module.exports = React.createClass({\n\
     return d.div(\n\
       {className: 'multi' + (this.state.collapsed ? ' multi--collapsed' : '')},\n\
       d.div(\n\
-        {className: 'multi__top'},\n\
+        {className: 'multi__top', onClick: this.toggleCollapse},\n\
         body && d.span({className: 'multi__collapser', onClick: this.toggleCollapse}),\n\
         d.span({className: 'multi__title'}, this.props.title),\n\
         this.options(current)\n\
