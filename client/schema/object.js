@@ -35,7 +35,8 @@ var Mapping = module.exports = React.createClass({
       },
       this.props.showTitle && d.span({className: 'object__collapser', onClick: this.toggleCollapse}),
       this.props.showTitle && d.span({
-        className: 'object__title'
+        className: 'object__title',
+        onClick: this.toggleCollapse
       }, this.props.title || schema._title),
       d.div({className: 'object__children'},
         keys.map(function (name) {

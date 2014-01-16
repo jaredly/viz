@@ -36,9 +36,12 @@ var Multi = module.exports = React.createClass({
     )
   },
 
-  changeType: function (i) {
+  changeType: function (i, e) {
+    e.preventDefault()
+    e.stopPropagation()
     var option = this.props.schema.options[i]
       , t = typeof option
+    this.setState({collapsed: false})
     if (t === 'string' || t === 'int') {
       return this.props.onChange(option)
     }
@@ -78,7 +81,7 @@ var Multi = module.exports = React.createClass({
     return d.div(
       {className: 'multi' + (this.state.collapsed ? ' multi--collapsed' : '')},
       d.div(
-        {className: 'multi__top'},
+        {className: 'multi__top', onClick: this.toggleCollapse},
         body && d.span({className: 'multi__collapser', onClick: this.toggleCollapse}),
         d.span({className: 'multi__title'}, this.props.title),
         this.options(current)

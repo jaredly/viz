@@ -40,10 +40,10 @@ var valueRef = {
 }
 
 var colorInt = {
-  _type: 'int',
+  _type: 'float',
   min: 0,
-  max: 255,
-  step: 1
+  max: 1,
+  step: .01
 }
 
 var colorRef = {
