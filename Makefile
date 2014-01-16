@@ -16,9 +16,10 @@ lint:
 
 
 gh-pages: build
-	cp -r web w
+	rm -rf w
+	cp -rL web w
 	git co gh-pages
-	rm -rf bootstrap font-awesome
+	rm -rf bootstrap font-awesome data examples lib
 	mv w/* ./
 	rmdir w
 
