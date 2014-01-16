@@ -45,9 +45,10 @@ html {
 }
 
 .schema-picker {
-  width: 250px;
-  overflow-y: auto;
+  width: 450px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .schema-picker__examples {
@@ -66,8 +67,13 @@ html {
   background-color: #555;
 }
 
+.schema-picker__top {
+  display: flex;
+}
+
 .schema-picker__back {
   display: block;
+  flex: 1;
   width: 100%;
   border: none;
   background-color: #666;
@@ -79,25 +85,55 @@ html {
   background-color: #555;
 }
 
-.multi__title,
+.schema-picker__schema {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.float,
+.object,
+.multi,
+.int,
+.string {
+  position: relative;
+}
+
+.float__title,
 .string__title,
 .int__title {
   display: block;
   position: absolute;
+  top: 0;
   right: 5px;
   margin-top: 3px;
   text-transform: lowercase;
   z-index: 5;
-  color: #ddd;
+  color: #444;
   pointer-events: none;
 }
 
+.multi__top {
+  display: flex;
+  background-color: #555;
+  padding: 0;
+  margin-top: 3px;
+}
+
+.multi__title {
+  color: #ddd;
+  position: static;
+  flex: 1;
+  padding: 2px 8px;
+}
+
+
+.float__input,
 .string__input,
 .int__input {
   width: 100%;
   border: 0;
   margin-top: 2px;
-  background-color: #888;
+  background-color: #ccc;
   padding: 2px 4px;
 }
 
@@ -109,7 +145,8 @@ html {
 .multi__options {
   list-style: none;
   padding: 0;
-  margin: 3px 0 0;
+  margin: 2px 0 0;
+  padding: 0;
 }
 
 .multi__option {
@@ -117,8 +154,8 @@ html {
   cursor: pointer;
   max-width: 100px;
   margin-right: 3px;
-  overflow: hidden;
-  padding: 2px 4px;
+  overflow: initial;
+  padding: 0px 4px;
   background-color: #555;
 }
 
@@ -126,3 +163,46 @@ html {
   background-color: #888;
 }
 
+.object__children,
+.multi__body {
+  padding-left: 20px;
+}
+
+.object__collapser:before,
+.multi__collapser:before {
+  content: '<';
+  position: absolute;
+  left: -20px;
+  cursor: pointer;
+  display: block;
+}
+
+.object--no-title > .object__children {
+  padding-left: 0;
+}
+
+.object--collapsed .object__children,
+.multi--collapsed .multi__body {
+  display: none;
+}
+
+.array__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.array__add {
+  background-color: #999;
+  padding: 2px 8px;
+  margin-top: 3px;
+  color: #333;
+  cursor: pointer;
+}
+
+.object__title {
+  background-color: #444;
+  display: block;
+  padding: 2px 4px;
+  margin: 3px 0 0;
+}

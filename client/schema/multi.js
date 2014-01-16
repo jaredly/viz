@@ -12,6 +12,10 @@ var Multi = module.exports = React.createClass({
     }
   },
 
+  getInitialState: function () {
+    return {collapsed: false}
+  },
+
   current: function () {
     return utils.findOption(this.props.value, this.props.schema.options)
   },
@@ -20,11 +24,11 @@ var Multi = module.exports = React.createClass({
     return d.ul(
       {className: 'multi__options'},
       this.props.schema.options.map(function (option, i) {
-        var name = option._type || ('object' === typeof option ? 'object' : option)
+        var name = option._title || option._type || ('object' === typeof option ? 'object' : option)
         return d.li(
           {
             className: 'multi__option' + (i === current ? ' multi__option--selected' : ''),
-            onClick: this.changeType.bind(null, i)
+            onClick: i === current ? false : this.changeType.bind(null, i)
           },
           name
         )
@@ -45,26 +49,41 @@ var Multi = module.exports = React.createClass({
     var option = this.props.schema.options[current]
       , value = this.props.value
       , t = typeof option
-    if (t === 'string' || t === 'int') {
+    if (option !== 'string' && option !== 'int' && option !== 'float' && (t === 'string' || t === 'int')) {
       return false
     }
     if (!types) types = require('./types')
-    return types[utils.typeFor(option)]({
-      schema: option,
-      value: value,
-      onChange: this.props.onChange,
-      allowBlank: false
-    })
+    return d.div(
+      {
+        className: 'multi__body'
+      },
+      types[utils.typeFor(option)]({
+        showTitle: false,
+        schema: option,
+        value: value,
+        onChange: this.props.onChange,
+        allowBlank: false
+      })
+    )
+  },
+
+  toggleCollapse: function () {
+    this.setState({collapsed: !this.state.collapsed})
   },
 
   render: function () {
     var current = this.current()
     if (current === -1) current = 0
+    var body = this.body(current)
     return d.div(
-      {className: 'multi'},
-      d.span({className: 'multi__title'}, this.props.title),
-      this.options(current),
-      this.body(current)
+      {className: 'multi' + (this.state.collapsed ? ' multi--collapsed' : '')},
+      d.div(
+        {className: 'multi__top'},
+        body && d.span({className: 'multi__collapser', onClick: this.toggleCollapse}),
+        d.span({className: 'multi__title'}, this.props.title),
+        this.options(current)
+      ),
+      body
     )
   }
 })

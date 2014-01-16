@@ -23,6 +23,7 @@ module.exports = React.createClass({
     this.setState({value: e.target.value})
   },
   blur: function () {
+    if (this.state.value === this.props.value) return
     this.props.onChange(this.state.value)
   },
   render: function () {

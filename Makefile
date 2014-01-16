@@ -43,6 +43,9 @@ web/font-awesome:
 clean:
 	rm -fr build components template.js
 
+serve: build
+	@cd web && python -mSimpleHTTPServer
+
 test: lint test-only
 
 .PHONY: clean web

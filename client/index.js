@@ -15,8 +15,32 @@ var Main = React.createClass({
     return {
       schema: null,
       status: 'init',
-      exampleSchemas: null
+      exampleSchemas: null,
+      history: [],
+      histpos: 0
     }
+  },
+  onUndo: function () {
+    var histpos = this.state.histpos
+    if (histpos === 0) return
+    var history = this.state.history.slice()
+    if (histpos === this.state.history.length) {
+      history.push(this.state.schema)
+    }
+    this.setState({
+      schema: this.state.history[histpos - 1],
+      histpos: histpos - 1,
+      history: history
+    })
+  },
+  onRedo: function () {
+    var histpos = this.state.histpos
+    if (histpos >= this.state.history.length) return
+    histpos += 1
+    this.setState({
+      schema: this.state.history[histpos],
+      histpos: histpos
+    })
   },
   componentDidMount: function () {
     this.setState({
@@ -46,10 +70,16 @@ var Main = React.createClass({
     }
     console.log('change', path, last, value)
     var schema = _.cloneDeep(this.state.schema)
+      , history = this.state.history.slice(0, this.state.histpos)
+    history.push(this.state.schema)
     path.reduce(function (obj, attr) {
       return obj && obj[attr]
     }, schema)[last] = value
-    this.setState({schema: schema})
+    this.setState({
+      schema: schema,
+      history: history,
+      histpos: history.length
+    })
   },
   render: function () {
     if (this.state.status === 'init') {
@@ -66,7 +96,11 @@ var Main = React.createClass({
       SchemaMaker({
         examples: this.state.exampleSchemas || {},
         schema: this.state.schema,
-        onChange: this.changeSchema
+        onChange: this.changeSchema,
+        onUndo: this.onUndo,
+        onRedo: this.onRedo,
+        canUndo: this.state.histpos > 0,
+        canRedo: this.state.histpos < this.state.history.length - 1
       }),
       VegaViewer({
         schema: this.state.schema

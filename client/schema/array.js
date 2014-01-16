@@ -62,7 +62,7 @@ module.exports = React.createClass({
         d.li({
           className: 'array__add',
           onClick: this.onAdd
-        }, 'Add')
+        }, 'Add ' + this.props.title)
       )
     )
     return d.div(null, 'arrays not supported atm')

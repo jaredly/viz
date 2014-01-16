@@ -17,6 +17,7 @@
     "client/schema/schema.js",
     "client/schema/string.js",
     "client/schema/int.js",
+    "client/schema/float.js",
     "client/schema/array.js",
     "client/schema/object.js",
     "client/schema/multi.js",

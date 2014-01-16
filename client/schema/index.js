@@ -40,7 +40,7 @@ var SchemaPicker = module.exports = React.createClass({
     )
   },
   goBack: function () {
-    this.props.onChange(null)
+    this.props.onChange(null, null)
   },
   render: function () {
     if (this.state.loading) {
@@ -56,18 +56,41 @@ var SchemaPicker = module.exports = React.createClass({
     return d.div(
       {className: 'schema-picker'},
         this.state.error,
-      d.button(
-        {
-          className: 'schema-picker__back',
-          onClick: this.goBack
-        },
-        'Examples List'
+      d.div(
+        {className: 'schema-picker__top'},
+        d.button(
+          {
+            className: 'schema-picker__back',
+            onClick: this.goBack
+          },
+          'Examples List'
+        ),
+        d.button(
+          {
+            className: 'schema-picker__undo',
+            disabled: !this.props.canUndo,
+            onClick: this.props.onUndo
+          },
+          'Undo'
+        ),
+        d.button(
+          {
+            className: 'schema-picker__redo',
+            disabled: !this.props.canRedo,
+            onClick: this.props.onRedo
+          },
+          'Redo'
+        )
       ),
-      Obj({
-        schema: vegaSchema,
-        value: this.props.schema,
-        onChange: this.props.onChange
-      })
+      d.div(
+        {className: 'schema-picker__schema'},
+        Obj({
+          title: 'Schema',
+          schema: vegaSchema,
+          value: this.props.schema,
+          onChange: this.props.onChange
+        })
+      )
       /*
       viewport,
       padding,

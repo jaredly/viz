@@ -16,14 +16,15 @@ var dim = {
 var valueRef = {
   _type: 'multi',
   options: [
-    'int',
+    {_type: 'float'},
     {
-      _title: 'field',
+      _title: 'reference',
       field: 'string',
       mult: {
-        _type: 'int',
+        _type: 'float',
         blank: true
       },
+      group: 'string',
       scale: {
         _type: 'multi',
         options: [
@@ -48,6 +49,10 @@ var colorInt = {
 var colorRef = {
   _type: 'multi',
   options: [
+    {
+      _title: 'value',
+      value: 'string'
+    },
     {
       _title: 'rgb',
       r: colorInt,
@@ -85,6 +90,8 @@ var properties = {
     stroke: colorRef,
     strokeWidth: valueRef,
     strokeOpacity: valueRef,
+  },
+  area: {
   }
 }
 
@@ -96,12 +103,14 @@ module.exports = {
   "width": dim,
   "height": dim,
   "padding": {
+    _title: 'padding',
     "_type": "multi",
     "options": [
       pad,
       "auto",
       "strict",
       {
+        _title: 'object',
         "top": pad,
         "left": pad,
         "right": pad,
@@ -110,6 +119,7 @@ module.exports = {
     ]
   },
   marks: [{
+    _title: 'mark',
     type: {
       _type: 'multi',
       options: [
