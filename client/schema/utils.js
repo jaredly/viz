@@ -52,6 +52,7 @@ function typeFor(item) {
 }
 
 function defaultValue(item) {
+  console.log('defaultvalue', item)
   var type = typeFor(item)
   if (type === 'string') {
     return ''
@@ -62,7 +63,16 @@ function defaultValue(item) {
   if (type === 'array') {
     return []
   }
+  if (type === 'multi') {
+    return defaultValue(item.options[0])
+  }
+  if (type !== 'object') console.log('fail', type)
   // TODO I could possibly support nested options...if I wanted to
-  return {}
+  var obj = {}
+  for (var name in item) {
+    if (name === '_') continue;
+    obj[name] = defaultValue(item[name])
+  }
+  return obj
 }
 

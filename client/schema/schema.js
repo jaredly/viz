@@ -109,7 +109,6 @@ module.exports = {
       }
     ]
   },
-  /*
   marks: [{
     type: {
       _type: 'multi',
@@ -137,6 +136,5 @@ module.exports = {
       }
     },
   }]
-  */
 }
 
