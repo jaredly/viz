@@ -14,8 +14,14 @@
   "scripts": [
     "client/index.js",
     "client/schema/index.js",
-    "client/schema/intput.js",
-    "client/schema/stringer.js",
+    "client/schema/schema.js",
+    "client/schema/string.js",
+    "client/schema/int.js",
+    "client/schema/array.js",
+    "client/schema/object.js",
+    "client/schema/multi.js",
+    "client/schema/types.js",
+    "client/schema/utils.js",
     "client/viewer.js"
   ],
   "styles": [

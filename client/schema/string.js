@@ -1,7 +1,14 @@
 
 var d = React.DOM
 
-var Stringer = module.exports = React.createClass({
+module.exports = React.createClass({
+  displayName: 'String',
+  getDefaultProps: function () {
+    return {
+      value: '',
+      onChange: function () {}
+    }
+  },
   getInitialState: function () {
     return {
       value: this.props.value
@@ -20,11 +27,12 @@ var Stringer = module.exports = React.createClass({
   },
   render: function () {
     return d.div(
-      {className: 'intput'},
+      {className: 'string'},
       d.span({
-        className: 'intput__title'
-      }),
+        className: 'string__title'
+      }, this.props.title),
       d.input({
+        className: 'string__input',
         value: this.state.value,
         onChange: this.onChange,
         onBlur: this.blur

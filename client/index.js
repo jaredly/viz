@@ -37,15 +37,16 @@ var Main = React.createClass({
         })
       }.bind(this))
   },
-  changeSchema: function (prop, value) {
-    console.log(prop, value, 'changing')
-    if (prop === null) {
+  changeSchema: function () {
+    var path = [].slice.call(arguments)
+      , value = path.pop()
+      , last = path.pop()
+    if (last === null && path.length === 0) {
       return this.setState({schema: value})
     }
+    console.log('change', path, last, value)
     var schema = _.cloneDeep(this.state.schema)
-      , parts = prop.split('.')
-      , last = parts.pop()
-    parts.reduce(function (obj, attr) {
+    path.reduce(function (obj, attr) {
       return obj && obj[attr]
     }, schema)[last] = value
     this.setState({schema: schema})

@@ -2,10 +2,11 @@
 var d = React.DOM
   , request = require('superagent')
 
-  , Stringer = require('./stringer')
-  , Intput = require('./intput')
+  , Obj = require('./object')
 
-var SchemaMaker = module.exports = React.createClass({
+  , vegaSchema = require('./schema')
+
+var SchemaPicker = module.exports = React.createClass({
   getInitialState: function () {
     return {loading: false, error: false}
   },
@@ -26,11 +27,11 @@ var SchemaMaker = module.exports = React.createClass({
   },
   picker: function () {
     return d.ul(
-      {className: 'schema__examples'},
+      {className: 'schema-picker__examples'},
       this.props.examples.map(function (name) {
         return d.li(
           {
-            className: 'schema__example',
+            className: 'schema-picker__example',
             onClick: this.getExample.bind(null, name)
           },
           name
@@ -43,39 +44,29 @@ var SchemaMaker = module.exports = React.createClass({
   },
   render: function () {
     if (this.state.loading) {
-      return d.div({className: 'schema'}, 'Loading...')
+      return d.div({className: 'schema-picker'}, 'Loading...')
     }
     if (!this.props.schema) {
       return d.div(
-        {className: 'schema'},
+        {className: 'schema-picker'},
         this.state.error,
         this.picker()
       )
     }
     return d.div(
-      {className: 'schema'},
+      {className: 'schema-picker'},
         this.state.error,
       d.button(
         {
-          className: 'schema__back',
+          className: 'schema-picker__back',
           onClick: this.goBack
         },
         'Examples List'
       ),
-      Stringer({
-        title: 'Name',
-        value: this.props.schema.name,
-        onChange: this.props.onChange.bind(null, 'name')
-      }),
-      Intput({
-        title: 'Width',
-        value: this.props.schema.width,
-        onChange: this.props.onChange.bind(null, 'width')
-      }),
-      Intput({
-        title: 'Height',
-        value: this.props.schema.height,
-        onChange: this.props.onChange.bind(null, 'height')
+      Obj({
+        schema: vegaSchema,
+        value: this.props.schema,
+        onChange: this.props.onChange
       })
       /*
       viewport,
