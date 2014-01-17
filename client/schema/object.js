@@ -46,11 +46,16 @@ var Mapping = module.exports = React.createClass({
       {
         className: 'object' + (this.state.collapsed ? ' object--collapsed' : '') + (this.props.showTitle ? '' : ' object--no-title')
       },
-      this.props.showTitle && d.span({className: 'object__collapser', onClick: this.toggleCollapse}),
-      this.props.showTitle && d.span({
-        className: 'object__title',
-        onClick: this.toggleCollapse
-      }, this.props.title || schema._title),
+      this.props.showTitle && d.div(
+        {
+          className: 'object__top',
+          onClick: this.toggleCollapse
+        },
+        d.span({
+          className: 'object__title',
+        }, this.props.title || schema._title),
+        d.span({className: 'object__collapser'})
+      ),
       d.div({className: 'object__children'},
         keys.map(function (name) {
           if (name === '_type') return false

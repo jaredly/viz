@@ -82,9 +82,9 @@ var Multi = module.exports = React.createClass({
       {className: 'multi' + (this.state.collapsed ? ' multi--collapsed' : '')},
       d.div(
         {className: 'multi__top', onClick: this.toggleCollapse},
-        body && d.span({className: 'multi__collapser', onClick: this.toggleCollapse}),
         d.span({className: 'multi__title'}, this.props.title),
-        this.options(current)
+        this.options(current),
+        body && d.span({className: 'multi__collapser', onClick: this.toggleCollapse})
       ),
       body
     )
